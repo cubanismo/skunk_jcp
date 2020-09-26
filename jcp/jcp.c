@@ -215,6 +215,7 @@ void DoE2pWrite(char *pszName);
 void DoSerialInfo();
 void DoSerialBig();
 void DoBiosUpdate();
+void DoE2pSelect(int s);
 void DoReset();
 void HandleConsole();
 void FilenameSanitize(char *buf);
@@ -269,11 +270,12 @@ int main(int argc, char* argv[])
 #endif
 
 	if ((argc<2) || ((argc>1)&&(strchr(argv[1],'?')))) {
-		bye("Usage: jcp [-rewfnbocdgpsux] file [$base]\n"		\
+		bye("Usage: jcp [-k <0|1|2>] | [-rewfnbocdgpsux] file [$base]\n"	\
 			"  -r = reset (no other args needed)\n"			\
 			"  -f = flash (pass filename + opt base)\n"		\
 			"  -wf= word flash (slow, only if 'f' alone fails)\n"	\
 			"  -ef= erase whole flash\n"		\
+			"  -k <0|1|2> = Select Serial EEPROM (0=none,1=128B,2=2048B)\n"	\
 			"  -n = no boot (pass filename + opt base)\n"	\
 			"  -b = boot address (pass base only)\n"		\
 			"  -o = override address (pass filename and base)\n" \
@@ -361,6 +363,16 @@ int main(int argc, char* argv[])
 					nBaseArg++;
 					g_pszExtShell=argv[++nArg];
 					fExitLoop=1;
+					break;
+
+				case 'k':
+					// Apply the EEPROM selection
+					if (nArg+1 < argc) {
+						DoE2pSelect(atoi(argv[nArg+1]));
+						bye("");
+					} else {
+						bye("-k option requires a serial EEPROM selection!");
+					}
 					break;
 
 				default: bye("Unknown option");
@@ -659,6 +671,85 @@ void DoReset() {
 	udev=NULL;
 }
 
+/* Enable one or none of the Serial EEPROMs */
+void DoE2pSelect(int s) {
+	// EZHost GPIO register memory map:
+	//
+	// 0xC006 - GPIO control register
+	// 0xC01E - GPIO0 output data register
+	// 0xC020 - GPIO0 input data register
+	// 0xC022 - GPIO0 direction register (0 = in, 1 = out)
+	// 0xC024 - GPIO1 output data register
+	// 0xC026 - GPIO1 input data register
+	// 0xC028 - GPIO1 direction register (0 = in, 1 = out)
+	//
+	// Additionally, note the UART, which uses GPIO28, is enabled by
+	// default. Need to disable it by setting the UART control register
+	// bit 0 to zero.
+	//
+	// 0xC0E0 - UART control register (bit 0 = 0 to disable)
+	//
+	// Chip select AND lines are on GPIO25 and GPIO28, which are in GPIO
+	// "bank" 1, so we'll use the GPIO1 registers. Note these are also
+	// used by the reset function, which is wired to GPIO17 and clobbers
+	// the entire GPIO1 direction register. However, that's fine; It just
+	// means EEPROM selection won't survive a skunk-initiated reset. I
+	// didn't find any other writes to the GPIO registers in JCP or the
+	// skunk BIOS or library files, so other than a reset or power cycle,
+	// the EZHost GPIO pin state should persist.
+
+	// Disable UART
+	unsigned char cmdUARTDis[10] = {0xB6, 0xC3, 0x04, 0x00, 0x00, 0xE0, 0xC0, 0x00, 0x00, 0x00};
+
+	// [0] == disable both, [1] == enable EEPROM 1, [2] == enable EEPROM 2
+	unsigned char cmdS[3][10] = {
+		{0xB6, 0xC3, 0x04, 0x00, 0x00, 0x24, 0xC0, 0x00, 0x00, 0x00},
+		{0xB6, 0xC3, 0x04, 0x00, 0x00, 0x24, 0xC0, 0x00, 0x10, 0x00},
+		{0xB6, 0xC3, 0x04, 0x00, 0x00, 0x24, 0xC0, 0x00, 0x02, 0x00},
+	};
+	// Configure GPIO25 and GPIO28 as outputs
+	unsigned char cmdOutEn[10] = {0xB6, 0xC3, 0x04, 0x00, 0x00, 0x28, 0xC0, 0x00, 0x12, 0x00};
+
+	if ( s > 2 || s < 0) {
+		printf("Invalid serial EEPROM setting: %d. Valid values: 0-2\n", s);
+		return;
+	}
+
+	if ( (g_OptVerbose) || (!g_OptSilentConsole) ) {
+		const char *e2sName[] = {
+			"neither",
+			"93C46 (128 byte)",
+			"93C86 (2048 byte)",
+		};
+		printf("Selecting %s serial EEPROM...\n", e2sName[s]);
+	}
+
+	if (NULL == udev) {
+		udev = findEZ(true, true);
+	}
+
+	// Disable the UART
+	if (usb_control_msg(udev, 0x40, 0xff, 10, 0x304C, (char*)cmdUARTDis, 10, 1000) != 10) {
+		bye("UART disable failed to send.");
+	}
+
+	// Pre-set the GPIO output values
+	if (usb_control_msg(udev, 0x40, 0xff, 10, 0x304C, (char*)cmdS[s], 10, 1000) != 10) {
+		bye("EEPROM select failed to send.");
+	}
+
+	// Configure GPIO 25 and 28 as outputs
+	if (usb_control_msg(udev, 0x40, 0xff, 10, 0x304C, (char*)cmdOutEn, 10, 1000) != 10) {
+		bye("GPIO output enable failed to send.");
+	}
+
+	/* in case it's used elsewhere */
+	if (NULL != udev) {
+		usb_close(udev);
+	}
+	udev=NULL;
+}
+
 /* Prepare the Jaguar to receive a flash file */
 void DoFlash(int nLen) {
 	volatile short poll=0;
@@ -843,7 +934,8 @@ void DoE2pDump(char *pszName) {
 	nEnd=GetTickCount();
 	nRes=nEnd-nStart;
 	if (nRes > 0) {
-		printf(" \nDumped 128B in %dms - %dKB/s\n", nRes, 128000/nRes);
+		printf(" \nDumped 128B in %dms - %0.3fKB/s\n", nRes,
+		       (128.0 / 1024.0) / (nRes / 1000.0));
 	} else {
 		printf("Dump time <1ms\n");
 	}
