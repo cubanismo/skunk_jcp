@@ -98,6 +98,7 @@ Thanks to SebRmv for ideas/fixes in the Skunklib support code
 #include "flashstub.h"
 #include "dumpver.h"
 #include "readver.h"
+#include "e2pget.h"
 #ifdef INCLUDE_BIOS_10204
 #include "upgrade10204.h"
 #endif
@@ -208,6 +209,7 @@ void DoResetAndReconnect(bool bForce);
 void DoResetAndBoot();
 void DoFlash(int nLen);
 void DoDump(char *pszName);
+void DoE2pDump(char *pszName);
 void DoSerialInfo();
 void DoSerialBig();
 void DoBiosUpdate();
@@ -233,6 +235,7 @@ bool g_OptDoSlowFlash=false;
 bool g_OptOverrideFlash=false;
 bool g_OptEraseAllBlocks=false;
 bool g_OptDoDump=false;
+bool g_OptDoE2pDump=false;
 bool g_OptFlashActive=false;
 bool g_OptNoBoot=false;
 bool g_OptOnlyBoot=false;
@@ -263,7 +266,7 @@ int main(int argc, char* argv[])
 #endif
 
 	if ((argc<2) || ((argc>1)&&(strchr(argv[1],'?')))) {
-		bye("Usage: jcp [-rewfnbocdsux] file [$base]\n"			\
+		bye("Usage: jcp [-rewfnbocdgsux] file [$base]\n"		\
 			"  -r = reset (no other args needed)\n"			\
 			"  -f = flash (pass filename + opt base)\n"		\
 			"  -wf= word flash (slow, only if 'f' alone fails)\n"	\
@@ -274,6 +277,7 @@ int main(int argc, char* argv[])
 			"  -h (cnt) = override the header skip count\n" \
 			"  -c = launch console (incompatible with n)\n"	\
 			"  -d = dump flash (pass filename)\n" \
+			"  -g = dump serial EEPROM (pass filename)\n" \
 			"  -s = get board version and serial number\n" \
 			"  -u = upgrade board bios (if available)\n" \
 			"  -!u= old upgrade - skip detection and update rev 1\n" \
@@ -318,6 +322,7 @@ int main(int argc, char* argv[])
 				case 'w': g_OptDoSlowFlash=true; break;		// 'w'ord writes
 				case 'e': g_OptEraseAllBlocks=true; break;
 				case 'd': g_OptDoDump=true; break;
+				case 'g': g_OptDoE2pDump=true; break;
 				case 'r': DoReset(); bye(""); break;
 				case 'n': g_OptNoBoot=true;	break;
 				case 'b': g_OptOnlyBoot=true; break;
@@ -383,7 +388,7 @@ int main(int argc, char* argv[])
 			} else {
 				strncpy(g_szFilename, argv[nFileArg], 256);
 				g_szFilename[255]='\0';
-				if (!g_OptDoDump) {
+				if (!g_OptDoDump && !g_OptDoE2pDump) {
 					FILE *fp = fopen(g_szFilename, "rb");
 					if (NULL == fp || (flen = (int)fread(fdata, 1, BUFSIZE, fp)) < 1) {
 						bye("Couldn't read file");
@@ -400,6 +405,11 @@ int main(int argc, char* argv[])
 	if (g_OptDoDump) {
 		DoDump(g_szFilename);
 		bye("Dump complete.");
+	}
+
+	if (g_OptDoE2pDump) {
+		DoE2pDump(g_szFilename);
+		bye("Serial EERPOM Dump complete.");
 	}
 
 	// Bit of a hack, preparse the file to figure out its true length and address
@@ -796,6 +806,36 @@ void DoDump(char *pszName) {
 		printf(" \nDumped 4MB in %ds - %dKB/s\n", nRes, (4*1024-8)/nRes);
 	} else {
 		printf("Dump time <1s\n");
+	}
+}
+
+/* Request the Jaguar to dump the serial EEPROM (uses the console to collect it) */
+void DoE2pDump(char *pszName) {
+	int nRes;
+	DWORD nEnd,nStart=GetTickCount();
+
+	// Open the file rather than making the Jaguar dump program do it using
+	// skunklib. This avoids the need to send the filename to the Jaguar
+	// just so it can send it back, and allows opening files in other
+	// directories, unlike skunklib.
+	fp=fopen(pszName, "wb");
+	if (NULL == fp) {
+		bye("Can't open output file!");
+	}
+
+	// This will make DoFile shell out to the console before returning
+	g_OptConsole=true;
+	g_OptSilentConsole=true;
+
+	printf("Beginning dump serial EEPROM to '%s'...\n", pszName);
+	DoFile((uchar*)e2pget, 0x4000, SIZE_OF_E2PGET, 168, true);
+
+	nEnd=GetTickCount();
+	nRes=nEnd-nStart;
+	if (nRes > 0) {
+		printf(" \nDumped 128B in %dms - %dKB/s\n", nRes, 128000/nRes);
+	} else {
+		printf("Dump time <1ms\n");
 	}
 }
 
@@ -1427,6 +1467,9 @@ void HandleConsole() {
 	}
 	if (g_OptDoDump) {
 		printf(" \nReceiving flash...\n");
+	}
+        if (g_OptDoE2pDump) {
+		printf(" \nReceiving serial EEPROM...\n");
 	}
 
 	// flag console as up
