@@ -113,7 +113,7 @@ Thanks to SebRmv for ideas/fixes in the Skunklib support code
 #endif
 
 /* version major.minor.rev */
-#define JCPVERSION 0x020402
+#define JCPVERSION 0x020500
 /* ROM based address that we can blindly send dummy data to */
 #define DUMMYBASE 0xFFE000
 /* size of the work buffer (maximum ROM size plus slack) */
