@@ -31,6 +31,7 @@
 ;;;;;;;;;;;;;;;;;;;
 ;;; Global Symbols
 
+		.globl eeDetect
 		.globl eeInit128
 		.globl eeInit2048
 		.globl eeWriteWord
@@ -103,6 +104,53 @@ e2048EWDS	equ	%1000000000000		;Erase/Write disable (default)
 		dc.b	"EEPROM Library",0,0		; 16 bytes long
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Procedure: eeDetect
+;;;            Detect the size/type of the EEPROM, if any.
+;;;
+;;;  Inputs: None
+;;; Returns: d0 = 0x0 - 93C46/128B EEPROM was found
+;;;          d0 = 0x1 - 93C86/2048B EEPROM was found
+;;;          d0 = 0xFFFFFFFF - No EEPROM found or unknown EEPROM size/type
+;;;          All other registers are preserved.
+
+eeDetect:
+		movem.l	d1-d3, -(sp)
+
+		move.l	#0, d1		; Read the first word assuming 93C46
+		jsr	eeread128
+		move.w	d0, d2		; Save the original value
+		eor.w	#$ffff, d0	; invert all the bits
+		move.w	d0, d3		; save the inverted value
+		jsr	eewrite128	; Write it back
+		jsr	eeread128	; Then read back what we wrote
+		cmp.w	d0, d3		; Did the write succeed?
+		bne	.try2048	; No.
+		move.w	d2, d0		; Yes, restore the EEPROM content
+		jsr	eewrite128
+		moveq	#0, d0
+		bra	.done
+
+.try2048:
+		jsr	eeread2048	; Read the first word assuming 93C86
+		move.w	d0, d2		; Save the original value
+		eor.w	#$ffff, d0	; invert all the bits
+		move.w	d0, d3		; save the inverted value
+		jsr	eewrite2048	; Write it back
+		jsr	eeread2048	; Then read back what we wrote
+		cmp.w	d0, d3		; Did the write succeed?
+		bne	.notfound	; No.
+		move.w	d2, d0		; Yes, restore the EEPROM content
+		jsr	eewrite2048
+		moveq	#1, d0
+		bra	.done
+
+.notfound:
+		move.l	#$ffffffff, d0
+.done:
+		movem.l	(sp)+, d1-d3
+		rts
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Procedure: eeInit128

@@ -9,8 +9,7 @@
 		.extern eeValidateChecksum
 		.extern eeInit128
 		.extern eeInit2048
-
-eeprom_size	.equ	128
+		.extern eeDetect
 
 ; Begin startup code.  Don't use startup.s, don't clobber the stack, and don't
 ; even set up Tom/Jerry or Video.  This code is meant to run from the skunk boot
@@ -24,12 +23,29 @@ start:
 		jsr	skunkNOP
 		jsr	skunkNOP
 
-.if (eeprom_size = 2048)
-		jsr	eeInit2048
-.else
+		jsr	eeDetect
+		cmp.b	#0, d0
+		bne	.chk2048
+		lea	smallfound, a0
+		jsr	skunkCONSOLEWRITE
+		move.l	#128, e2psize
 		jsr	eeInit128
-.endif
+		bra	.doneinit
+.chk2048:
+		cmp.b	#1, d0
+		bne	.notfound
+		lea	bigfound, a0
+		jsr	skunkCONSOLEWRITE
+		move.l	#2048, e2psize
+		jsr	eeInit2048
+		bra	.doneinit
 
+.notfound:
+		lea	e2pnotfound,a0
+		jsr	skunkCONSOLEWRITE
+		bra	.done
+
+.doneinit:
 .if ^^defined FOR_JCP
 		; jcp will have already opened skunk file
 .else
@@ -39,10 +55,9 @@ start:
 .endif
 
 		lea	e2pscrch,a0		; Read file to scratch buffer
-		move.l	#eeprom_size,d0
+		move.l	e2psize,d0
 		jsr	skunkFILEREAD
-		jsr	skunkFILECLOSE
-		cmp.l	#eeprom_size,d0
+		cmp.l	e2psize,d0
 		beq	.gotdata
 
 		lea	fileermsg,a0
@@ -67,11 +82,18 @@ start:
 .endif
 
 .done:
+		jsr	skunkFILECLOSE
 		jsr	skunkCONSOLECLOSE
 		movem.l	(sp)+,a0/d0
 		rts
 
 		.data
+		.long
+e2pnotfound:	dc.b	'No supported serial EEPROM found.',13,10,0
+		.long
+smallfound:	dc.b	'Detected 93C46 (128-byte) serial EEPROM. Sending data...',13,10,0
+		.long
+bigfound:	dc.b	'Detected 93C86 (2048-byte) serial EEPROM. Sending data...',13,10,0
 .if !(^^defined FOR_JCP)
 		.long
 filename:	dc.b	'eeprom.e2p',0
@@ -85,5 +107,5 @@ e2permsg:	dc.b	'ERROR! Failed to write EEPROM.',13,10,0
 
 		.bss
 		.long
-
-e2pscrch:	.ds.w	eeprom_size>>1	; Working copy of eeprom content
+e2psize:	ds.l	1
+e2pscrch:	.ds.w	2048>>1	; Working copy of eeprom content

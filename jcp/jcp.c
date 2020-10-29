@@ -232,6 +232,7 @@ char g_szFilename[256];
 FILE *fp=NULL;
 bool g_FirstFileSent=false;
 char *g_pszExtShell;
+int nE2pBytes = 0;
 
 bool g_OptDoFlash=false;
 bool g_OptDoSlowFlash=false;
@@ -928,14 +929,15 @@ void DoE2pDump(char *pszName) {
 	g_OptConsole=true;
 	g_OptSilentConsole=true;
 
-	printf("Beginning dump serial EEPROM to '%s'...\n", pszName);
+	printf("Beginning serial EEPROM dump to '%s'...\n", pszName);
 	DoFile((uchar*)e2pget, 0x4000, SIZE_OF_E2PGET, 168, true);
 
 	nEnd=GetTickCount();
 	nRes=nEnd-nStart;
 	if (nRes > 0) {
-		printf(" \nDumped 128B in %dms - %0.3fKB/s\n", nRes,
-		       (128.0 / 1024.0) / (nRes / 1000.0));
+		printf(" \nDumped %d bytes in %dms - %0.3fKB/s\n",
+		       nE2pBytes, nRes,
+		       (nE2pBytes / 1024.0) / (nRes / 1000.0));
 	} else {
 		printf("Dump time <1ms\n");
 	}
@@ -965,8 +967,9 @@ void DoE2pWrite(char *pszName) {
 	nEnd=GetTickCount();
 	nRes=nEnd-nStart;
 	if (nRes > 0) {
-		printf(" \nWrote 128B in %dms - %0.3fKB/s\n", nRes,
-		       (128.0 / 1024.0) / (nRes / 1000.0));
+		printf(" \nWrote %d bytes in %dms - %0.3fKB/s\n",
+		       nE2pBytes, nRes,
+		       (nE2pBytes / 1024.0) / (nRes / 1000.0));
 	} else {
 		printf("Write time <1ms\n");
 	}
@@ -1601,12 +1604,6 @@ void HandleConsole() {
 	if (g_OptDoDump) {
 		printf(" \nReceiving flash...\n");
 	}
-        if (g_OptDoE2pDump) {
-		printf(" \nReceiving serial EEPROM...\n");
-	}
-        if (g_OptDoE2pWrite) {
-		printf(" \nWriting serial EEPROM...\n");
-	}
 
 	// flag console as up
 	g_OptConsoleUp = true;
@@ -1813,6 +1810,11 @@ void HandleConsole() {
 						nLength=((block[0xfea]<<8)|block[0xfeb])-4;
 						if (nLength > 4060) nLength=4060;
 						fwrite(&block[4], 1, nLength, fp);
+
+						if (g_OptDoE2pDump) {
+							nE2pBytes += nLength;
+						}
+
 						nTotalFileLength+=nLength;
 						if (g_OptVerbose) {
 							printf("Wrote %d bytes, total %d\n", nLength, nTotalFileLength);
@@ -1835,6 +1837,11 @@ void HandleConsole() {
 						if (g_OptVerbose) {
 							printf(" got %d\n", nLength);
 						}
+
+						if (g_OptDoE2pWrite) {
+							nE2pBytes += nLength;
+						}
+
 						// write that input to the jag in the alternate buffer
 						WriteABlock((unsigned char*)buf, DUMMYBASE, -1, nLength);
 
