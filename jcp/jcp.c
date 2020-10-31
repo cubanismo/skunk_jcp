@@ -94,7 +94,7 @@ Thanks to SebRmv for ideas/fixes in the Skunklib support code
 #endif
 #include "turbow.h"
 #include "univbin.h"
-#include "romdump.h"
+#include "romdump6.h"
 #include "flashstub.h"
 #include "dumpver.h"
 #include "readver.h"
@@ -113,7 +113,7 @@ Thanks to SebRmv for ideas/fixes in the Skunklib support code
 #endif
 
 /* version major.minor.rev */
-#define JCPVERSION 0x020500
+#define JCPVERSION 0x020600
 /* ROM based address that we can blindly send dummy data to */
 #define DUMMYBASE 0xFFE000
 /* size of the work buffer (maximum ROM size plus slack) */
@@ -854,6 +854,8 @@ void DoFlash(int nLen) {
 void DoDump(char *pszName) {
 	int nCnt, nRes;
 	DWORD nEnd,nStart=GetTickCount();
+	int dumpSize = 4*1024-8;
+	const char *dumpSizeStr = "4";
 
 	// First we need to open the file and write the universal header to it
 	fp=fopen(pszName, "wb");
@@ -893,19 +895,30 @@ void DoDump(char *pszName) {
 	g_OptConsole=true;
 	g_OptSilentConsole=true;
 
-	// we hack ROMDUMP to set the second bank, if needed. This requires ROMDUMP
+	// we hack romdump6 to set the second bank, if needed. This requires ROMDUMP
 	// not to be const!
 	if (nCartBank == 1) {
-		ROMDUMP[0xab]=1;
+		romdump6[0xab]=1;
+	} else if (nCartBank == -1) {
+		// Patch the rom blocks to 0x060a big endian
+		romdump6[0xb0] = 0x06;
+		romdump6[0xb1] = 0x0a;
+		// Patch the rom remainder to 0x098c big endian
+		romdump6[0xba] = 0x09;
+		romdump6[0xbb] = 0x8c;
+
+		dumpSize = 6*1024-8;
+		dumpSizeStr = "6";
 	}
 
 	printf("Beginning dump to '%s'...\n", pszName);
-	DoFile((uchar*)ROMDUMP, 0x10000, SIZE_OF_ROMDUMP, 168, true);
+	DoFile((uchar *)romdump6, 0x10000, SIZE_OF_ROMDUMP6, 168, true);
 
 	nEnd=GetTickCount();
 	nRes=(nEnd-nStart)/1000;
 	if (nRes > 0) {
-		printf(" \nDumped 4MB in %ds - %dKB/s\n", nRes, (4*1024-8)/nRes);
+		printf(" \nDumped %sMB in %ds - %dKB/s\n", dumpSizeStr, nRes,
+				dumpSize/nRes);
 	} else {
 		printf("Dump time <1s\n");
 	}
