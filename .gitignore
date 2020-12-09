@@ -283,3 +283,6 @@ __pycache__/
 
 # Unix Project-specific build artifacts:
 /jcp/jcp
+
+# Nullsoft Installer Artifacts
+/nsis/jcp_installer.exe
