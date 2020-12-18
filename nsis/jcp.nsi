@@ -24,9 +24,15 @@
   !insertmacro MUI_PAGE_COMPONENTS
   !insertmacro MUI_PAGE_DIRECTORY
   !insertmacro MUI_PAGE_INSTFILES
-  !define MUI_FINISHPAGE_LINK "Documentation & the latest version on Github"
+  !define MUI_FINISHPAGE_LINK "Documentation && the latest version on Github"
   !define MUI_FINISHPAGE_LINK_LOCATION "https://github.com/cubanismo/skunk_jcp"
-  !define MUI_FINISHPAGE_TEXT "To get started, plug your Skunkboard USB cable into the computer and your Skunkboard, then open a command prompt (Click the start menu and type 'cmd' then hit Enter), and run 'jcp'. Note the driver installation will not be finalized until the Skunkboard is connected for the first time, and JCP will not run at all until the driver is completely installed. Have fun!"
+  !define MUI_FINISHPAGE_TEXT "To get started, plug your Skunkboard USB cable \
+into the computer and your Skunkboard, then open a command prompt (Click \
+the start menu and type 'cmd' then hit Enter), and run 'jcp'.$\n$\n\
+NOTE: The driver installation will not be finalized until the Skunkboard is \
+connected for the first time, and JCP will not run at all until the driver is \
+completely installed.$\n$\n\
+Have fun!"
   !insertmacro MUI_PAGE_FINISH
   !insertmacro MUI_UNPAGE_INSTFILES 
   !insertmacro MUI_UNPAGE_FINISH
