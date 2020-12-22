@@ -1,0 +1,553 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F216B8E62595BE4000968A94 /* usb.c in Sources */ = {isa = PBXBuildFile; fileRef = F216B8E02595BE4000968A94 /* usb.c */; };
+		F216B8E72595BE4000968A94 /* darwin.c in Sources */ = {isa = PBXBuildFile; fileRef = F216B8E12595BE4000968A94 /* darwin.c */; };
+		F216B8E82595BE4000968A94 /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = F216B8E22595BE4000968A94 /* error.h */; };
+		F216B8E92595BE4000968A94 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = F216B8E32595BE4000968A94 /* error.c */; };
+		F216B8EA2595BE4000968A94 /* usbi.h in Headers */ = {isa = PBXBuildFile; fileRef = F216B8E42595BE4000968A94 /* usbi.h */; };
+		F216B8EB2595BE4000968A94 /* descriptors.c in Sources */ = {isa = PBXBuildFile; fileRef = F216B8E52595BE4000968A94 /* descriptors.c */; };
+		F216B8FE2595C0D600968A94 /* libusb-0.1.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F216B8D82595BCD600968A94 /* libusb-0.1.4.dylib */; };
+		F2477343259850CF00A3BBFB /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = F2477342259850CF00A3BBFB /* config.h */; };
+		F24773472598511600A3BBFB /* usb.h in Headers */ = {isa = PBXBuildFile; fileRef = F24773462598511600A3BBFB /* usb.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F247735B25985D0000A3BBFB /* jcp in CopyFiles */ = {isa = PBXBuildFile; fileRef = F2CF9AE92591D98D00054A42 /* jcp */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		F247736125985E5300A3BBFB /* libusb-0.1.4.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F216B8D82595BCD600968A94 /* libusb-0.1.4.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		F28749632591DE6100A1DA8C /* jcp_handler.c in Sources */ = {isa = PBXBuildFile; fileRef = F28749592591DE6000A1DA8C /* jcp_handler.c */; };
+		F28749642591DE6100A1DA8C /* jcp.c in Sources */ = {isa = PBXBuildFile; fileRef = F28749612591DE6100A1DA8C /* jcp.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F24773502598523B00A3BBFB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2CF9AE12591D98D00054A42 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F216B8D72595BCD600968A94;
+			remoteInfo = libusb;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F247736025985E4100A3BBFB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "$(SRCROOT)/$(CONFIGURATION)";
+			dstSubfolderSpec = 0;
+			files = (
+				F247736125985E5300A3BBFB /* libusb-0.1.4.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2CF9AE72591D98D00054A42 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "$(SRCROOT)/$(CONFIGURATION";
+			dstSubfolderSpec = 0;
+			files = (
+				F247735B25985D0000A3BBFB /* jcp in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F216B8D82595BCD600968A94 /* libusb-0.1.4.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libusb-0.1.4.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F216B8E02595BE4000968A94 /* usb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = usb.c; sourceTree = "<group>"; };
+		F216B8E12595BE4000968A94 /* darwin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = darwin.c; sourceTree = "<group>"; };
+		F216B8E22595BE4000968A94 /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
+		F216B8E32595BE4000968A94 /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
+		F216B8E42595BE4000968A94 /* usbi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = usbi.h; sourceTree = "<group>"; };
+		F216B8E52595BE4000968A94 /* descriptors.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = descriptors.c; sourceTree = "<group>"; };
+		F216B8EF2595BF0400968A94 /* config.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = config.h.in; sourceTree = "<group>"; };
+		F216B8F02595BF0400968A94 /* configure */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = configure; sourceTree = "<group>"; };
+		F216B8F12595BF0400968A94 /* usb.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = usb.h.in; sourceTree = "<group>"; };
+		F2477342259850CF00A3BBFB /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		F24773462598511600A3BBFB /* usb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = usb.h; sourceTree = "<group>"; };
+		F28749542591DE6000A1DA8C /* flash_cof.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = flash_cof.h; path = ../jcp/flash_cof.h; sourceTree = "<group>"; };
+		F28749552591DE6000A1DA8C /* turbow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = turbow.h; path = ../jcp/turbow.h; sourceTree = "<group>"; };
+		F28749562591DE6000A1DA8C /* dumpver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dumpver.h; path = ../jcp/dumpver.h; sourceTree = "<group>"; };
+		F28749572591DE6000A1DA8C /* readver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = readver.h; path = ../jcp/readver.h; sourceTree = "<group>"; };
+		F28749582591DE6000A1DA8C /* jcp_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcp_handler.h; path = ../jcp/jcp_handler.h; sourceTree = "<group>"; };
+		F28749592591DE6000A1DA8C /* jcp_handler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = jcp_handler.c; path = ../jcp/jcp_handler.c; sourceTree = "<group>"; };
+		F287495A2591DE6000A1DA8C /* univbin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = univbin.h; path = ../jcp/univbin.h; sourceTree = "<group>"; };
+		F287495B2591DE6000A1DA8C /* upgrade30002.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = upgrade30002.h; path = ../jcp/upgrade30002.h; sourceTree = "<group>"; };
+		F287495C2591DE6000A1DA8C /* e2pget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = e2pget.h; path = ../jcp/e2pget.h; sourceTree = "<group>"; };
+		F287495D2591DE6000A1DA8C /* e2pput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = e2pput.h; path = ../jcp/e2pput.h; sourceTree = "<group>"; };
+		F287495E2591DE6000A1DA8C /* romdump6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = romdump6.h; path = ../jcp/romdump6.h; sourceTree = "<group>"; };
+		F287495F2591DE6000A1DA8C /* winusb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = winusb.h; path = ../jcp/winusb.h; sourceTree = "<group>"; };
+		F28749602591DE6100A1DA8C /* flashstub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = flashstub.h; path = ../jcp/flashstub.h; sourceTree = "<group>"; };
+		F28749612591DE6100A1DA8C /* jcp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = jcp.c; path = ../jcp/jcp.c; sourceTree = "<group>"; };
+		F28749622591DE6100A1DA8C /* upgrade10204.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = upgrade10204.h; path = ../jcp/upgrade10204.h; sourceTree = "<group>"; };
+		F28749712591EA2500A1DA8C /* jcp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = jcp.entitlements; sourceTree = "<group>"; };
+		F2CF9AE92591D98D00054A42 /* jcp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = jcp; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F216B8D62595BCD600968A94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2CF9AE62591D98D00054A42 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F216B8FE2595C0D600968A94 /* libusb-0.1.4.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F216B8FD2595C0D600968A94 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F28749382591DB0200A1DA8C /* libusb-0.1.12 */ = {
+			isa = PBXGroup;
+			children = (
+				F2477342259850CF00A3BBFB /* config.h */,
+				F216B8EF2595BF0400968A94 /* config.h.in */,
+				F216B8F02595BF0400968A94 /* configure */,
+				F216B8F12595BF0400968A94 /* usb.h.in */,
+				F216B8E12595BE4000968A94 /* darwin.c */,
+				F216B8E52595BE4000968A94 /* descriptors.c */,
+				F216B8E32595BE4000968A94 /* error.c */,
+				F216B8E22595BE4000968A94 /* error.h */,
+				F216B8E02595BE4000968A94 /* usb.c */,
+				F24773462598511600A3BBFB /* usb.h */,
+				F216B8E42595BE4000968A94 /* usbi.h */,
+			);
+			name = "libusb-0.1.12";
+			path = "../../libusb-0.1.12";
+			sourceTree = "<group>";
+		};
+		F2CF9AE02591D98D00054A42 = {
+			isa = PBXGroup;
+			children = (
+				F28749712591EA2500A1DA8C /* jcp.entitlements */,
+				F28749382591DB0200A1DA8C /* libusb-0.1.12 */,
+				F2CF9AEB2591D98D00054A42 /* JCP */,
+				F2CF9AEA2591D98D00054A42 /* Products */,
+				F216B8FD2595C0D600968A94 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F2CF9AEA2591D98D00054A42 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F2CF9AE92591D98D00054A42 /* jcp */,
+				F216B8D82595BCD600968A94 /* libusb-0.1.4.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F2CF9AEB2591D98D00054A42 /* JCP */ = {
+			isa = PBXGroup;
+			children = (
+				F28749562591DE6000A1DA8C /* dumpver.h */,
+				F287495C2591DE6000A1DA8C /* e2pget.h */,
+				F287495D2591DE6000A1DA8C /* e2pput.h */,
+				F28749542591DE6000A1DA8C /* flash_cof.h */,
+				F28749602591DE6100A1DA8C /* flashstub.h */,
+				F28749592591DE6000A1DA8C /* jcp_handler.c */,
+				F28749582591DE6000A1DA8C /* jcp_handler.h */,
+				F28749612591DE6100A1DA8C /* jcp.c */,
+				F28749572591DE6000A1DA8C /* readver.h */,
+				F287495E2591DE6000A1DA8C /* romdump6.h */,
+				F28749552591DE6000A1DA8C /* turbow.h */,
+				F287495A2591DE6000A1DA8C /* univbin.h */,
+				F28749622591DE6100A1DA8C /* upgrade10204.h */,
+				F287495B2591DE6000A1DA8C /* upgrade30002.h */,
+				F287495F2591DE6000A1DA8C /* winusb.h */,
+			);
+			name = JCP;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		F216B8D42595BCD600968A94 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F24773472598511600A3BBFB /* usb.h in Headers */,
+				F2477343259850CF00A3BBFB /* config.h in Headers */,
+				F216B8E82595BE4000968A94 /* error.h in Headers */,
+				F216B8EA2595BE4000968A94 /* usbi.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		F216B8D72595BCD600968A94 /* libusb-0.1.4 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F216B8DB2595BCD600968A94 /* Build configuration list for PBXNativeTarget "libusb-0.1.4" */;
+			buildPhases = (
+				F216B8EE2595BE9800968A94 /* Configure */,
+				F216B8D42595BCD600968A94 /* Headers */,
+				F216B8D52595BCD600968A94 /* Sources */,
+				F216B8D62595BCD600968A94 /* Frameworks */,
+				F247736025985E4100A3BBFB /* CopyFiles */,
+				F2BD895D2598621900ACEEEB /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "libusb-0.1.4";
+			productName = "libusb-0.1.12";
+			productReference = F216B8D82595BCD600968A94 /* libusb-0.1.4.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		F2CF9AE82591D98D00054A42 /* jcp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2CF9AF02591D98D00054A42 /* Build configuration list for PBXNativeTarget "jcp" */;
+			buildPhases = (
+				F2CF9AE52591D98D00054A42 /* Sources */,
+				F2CF9AE62591D98D00054A42 /* Frameworks */,
+				F2CF9AE72591D98D00054A42 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F24773512598523B00A3BBFB /* PBXTargetDependency */,
+			);
+			name = jcp;
+			productName = "Jaguar Copy";
+			productReference = F2CF9AE92591D98D00054A42 /* jcp */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F2CF9AE12591D98D00054A42 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1230;
+				TargetAttributes = {
+					F216B8D72595BCD600968A94 = {
+						CreatedOnToolsVersion = 12.3;
+					};
+					F2CF9AE82591D98D00054A42 = {
+						CreatedOnToolsVersion = 12.3;
+					};
+				};
+			};
+			buildConfigurationList = F2CF9AE42591D98D00054A42 /* Build configuration list for PBXProject "jcp" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F2CF9AE02591D98D00054A42;
+			productRefGroup = F2CF9AEA2591D98D00054A42 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F2CF9AE82591D98D00054A42 /* jcp */,
+				F216B8D72595BCD600968A94 /* libusb-0.1.4 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F216B8EE2595BE9800968A94 /* Configure */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../../libusb-0.1.12/config.h.in",
+				"$(SRCROOT)/../../libusb-0.1.12/usb.h.in",
+				"$(SRCROOT)/../../libusb-0.1.12/configure",
+			);
+			name = Configure;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/../../libusb-0.1.12/config.h",
+				"$(SRCROOT)/../../libusb-0.1.12/usb.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -d \"${SRCROOT}/../../libusb-0.1.12\" ]; then\n  cd \"${SRCROOT}/../../libusb-0.1.12\"; ./configure\nelse\n  echo \"Please download and extract libusb-0.1.12 next to the\"\n  echo \"skunk_jcp top-level directory on your filesystem\"\nfi\n";
+		};
+		F2BD895D2598621900ACEEEB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${SRCROOT}/${CONFIGURATION}\"\nif [ ! -L libusb-0.1.4.dylib ]; then\n  mv libusb-0.1.4.dylib libusb-0.1.4.4.4.dylib\n  ln -s libusb-0.1.4.4.4.dylib libusb-0.1.4.dylib\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F216B8D52595BCD600968A94 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F216B8EB2595BE4000968A94 /* descriptors.c in Sources */,
+				F216B8E92595BE4000968A94 /* error.c in Sources */,
+				F216B8E72595BE4000968A94 /* darwin.c in Sources */,
+				F216B8E62595BE4000968A94 /* usb.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2CF9AE52591D98D00054A42 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F28749642591DE6100A1DA8C /* jcp.c in Sources */,
+				F28749632591DE6100A1DA8C /* jcp_handler.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F24773512598523B00A3BBFB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F216B8D72595BCD600968A94 /* libusb-0.1.4 */;
+			targetProxy = F24773502598523B00A3BBFB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F216B8D92595BCD600968A94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MS4BF8VZDR;
+				DYLIB_COMPATIBILITY_VERSION = 9.0.0;
+				DYLIB_CURRENT_VERSION = 9.4.0;
+				ENABLE_HARDENED_RUNTIME = YES;
+				EXECUTABLE_PREFIX = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
+			};
+			name = Debug;
+		};
+		F216B8DA2595BCD600968A94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MS4BF8VZDR;
+				DYLIB_COMPATIBILITY_VERSION = 9.0.0;
+				DYLIB_CURRENT_VERSION = 9.4.0;
+				ENABLE_HARDENED_RUNTIME = YES;
+				EXECUTABLE_PREFIX = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
+			};
+			name = Release;
+		};
+		F2CF9AEE2591D98D00054A42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		F2CF9AEF2591D98D00054A42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F2CF9AF12591D98D00054A42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = jcp.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = MS4BF8VZDR;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = "../../libusb-0.1.12";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = com.theinnocuous.jcp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		F2CF9AF22591D98D00054A42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = jcp.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = MS4BF8VZDR;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = "../../libusb-0.1.12";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = com.theinnocuous.jcp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F216B8DB2595BCD600968A94 /* Build configuration list for PBXNativeTarget "libusb-0.1.4" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F216B8D92595BCD600968A94 /* Debug */,
+				F216B8DA2595BCD600968A94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2CF9AE42591D98D00054A42 /* Build configuration list for PBXProject "jcp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2CF9AEE2591D98D00054A42 /* Debug */,
+				F2CF9AEF2591D98D00054A42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2CF9AF02591D98D00054A42 /* Build configuration list for PBXNativeTarget "jcp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2CF9AF12591D98D00054A42 /* Debug */,
+				F2CF9AF22591D98D00054A42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F2CF9AE12591D98D00054A42 /* Project object */;
+}

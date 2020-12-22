@@ -286,3 +286,6 @@ __pycache__/
 
 # Nullsoft Installer Artifacts
 /nsis/jcp_installer.exe
+
+# XCode user data
+xcuserdata/
