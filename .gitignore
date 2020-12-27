@@ -289,3 +289,6 @@ __pycache__/
 
 # XCode user data
 xcuserdata/
+
+# The "Packages" app (Mac installer creator) build artifacts
+/xcode/installer/build
