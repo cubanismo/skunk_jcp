@@ -34,7 +34,12 @@ This installer contains code from libwdi, available here:
 
   https://github.com/pbatard/libwdi
 
-libwdi is used under the terms of the LGPL3:
+The libwdi component in turn contains code from libusb-win32-1.2.6.0,
+available here:
+
+  https://sourceforge.net/projects/libusb-win32/files/libusb-win32-releases/1.2.6.0/
+
+libwdi and libusb-win32 are used under the terms of the LGPL3:
 
                    GNU LESSER GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
