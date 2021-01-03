@@ -521,7 +521,7 @@
 				<key>FOLLOW_SYMBOLIC_LINKS</key>
 				<false/>
 				<key>IDENTIFIER</key>
-				<string>com.theinnocuous.com.pkg.JaguarCopy</string>
+				<string>com.theinnocuous.pkg.JaguarCopy</string>
 				<key>LOCATION</key>
 				<integer>0</integer>
 				<key>NAME</key>
@@ -1428,6 +1428,13 @@
 				<key>PATH_TYPE</key>
 				<integer>1</integer>
 			</dict>
+			<key>CERTIFICATE</key>
+			<dict>
+				<key>NAME</key>
+				<string>Developer ID Installer: James Jones (MS4BF8VZDR)</string>
+				<key>PATH</key>
+				<string>/Users/jjones/Library/Keychains/login.keychain</string>
+			</dict>
 			<key>EXCLUDED_FILES</key>
 			<array>
 				<dict>
@@ -1597,7 +1604,7 @@
 				</dict>
 			</array>
 			<key>NAME</key>
-			<string>JCP</string>
+			<string>JCPInstaller</string>
 			<key>PAYLOAD_ONLY</key>
 			<false/>
 			<key>TREAT_MISSING_PRESENTATION_DOCUMENTS_AS_WARNING</key>

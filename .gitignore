@@ -292,3 +292,10 @@ xcuserdata/
 
 # The "Packages" app (Mac installer creator) build artifacts
 /xcode/installer/build
+
+# The notarization scripts generate a log to keep track of the notarization
+# requests that are inflight.
+/xcode/installer/notarization.log
+
+# Apple folder info stuff
+.DS_Store

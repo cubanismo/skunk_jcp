@@ -66,6 +66,7 @@
 		F216B8EF2595BF0400968A94 /* config.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = config.h.in; sourceTree = "<group>"; };
 		F216B8F02595BF0400968A94 /* configure */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = configure; sourceTree = "<group>"; };
 		F216B8F12595BF0400968A94 /* usb.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = usb.h.in; sourceTree = "<group>"; };
+		F23EED8A25A1992000B39A5B /* jcp.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = jcp.plist; sourceTree = "<group>"; };
 		F2477342259850CF00A3BBFB /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		F24773462598511600A3BBFB /* usb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = usb.h; sourceTree = "<group>"; };
 		F28749542591DE6000A1DA8C /* flash_cof.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = flash_cof.h; path = ../jcp/flash_cof.h; sourceTree = "<group>"; };
@@ -135,6 +136,7 @@
 		F2CF9AE02591D98D00054A42 = {
 			isa = PBXGroup;
 			children = (
+				F23EED8A25A1992000B39A5B /* jcp.plist */,
 				F28749712591EA2500A1DA8C /* jcp.entitlements */,
 				F28749382591DB0200A1DA8C /* libusb-0.1.12 */,
 				F2CF9AEB2591D98D00054A42 /* JCP */,
@@ -343,13 +345,15 @@
 		F216B8D92595BCD600968A94 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = MS4BF8VZDR;
 				DYLIB_COMPATIBILITY_VERSION = 9.0.0;
 				DYLIB_CURRENT_VERSION = 9.4.0;
 				ENABLE_HARDENED_RUNTIME = YES;
 				EXECUTABLE_PREFIX = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_CODE_SIGN_FLAGS = "--timestamp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
 			};
@@ -358,13 +362,15 @@
 		F216B8DA2595BCD600968A94 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = MS4BF8VZDR;
 				DYLIB_COMPATIBILITY_VERSION = 9.0.0;
 				DYLIB_CURRENT_VERSION = 9.4.0;
 				ENABLE_HARDENED_RUNTIME = YES;
 				EXECUTABLE_PREFIX = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_CODE_SIGN_FLAGS = "--timestamp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
 			};
@@ -487,13 +493,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = jcp.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				DEVELOPMENT_TEAM = MS4BF8VZDR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = "../../libusb-0.1.12";
+				INFOPLIST_FILE = "$(SRCROOT)/jcp.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_BUNDLE_IDENTIFIER = com.theinnocuous.jcp;
+				OTHER_CODE_SIGN_FLAGS = "--timestamp";
+				PRODUCT_BUNDLE_IDENTIFIER = com.theinnocuous.JaguarCopy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -504,13 +513,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = jcp.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				DEVELOPMENT_TEAM = MS4BF8VZDR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = "../../libusb-0.1.12";
+				INFOPLIST_FILE = "$(SRCROOT)/jcp.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_BUNDLE_IDENTIFIER = com.theinnocuous.jcp;
+				OTHER_CODE_SIGN_FLAGS = "--timestamp";
+				PRODUCT_BUNDLE_IDENTIFIER = com.theinnocuous.JaguarCopy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				USER_HEADER_SEARCH_PATHS = "";
