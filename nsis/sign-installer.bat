@@ -6,4 +6,5 @@ echo   The Visual Studio component "SignTool.exe" must be in the PATH
 GOTO:eof
 
 :HaveArgs
-SignTool sign /f "%1" /p "%2" jcp_installer.exe
+SignTool sign /f "%1" /p "%2" /t http://timestamp.digicert.com jcp_installer.exe
+SignTool verify /pa /tw jcp_installer.exe

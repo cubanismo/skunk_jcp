@@ -24,12 +24,12 @@ When you're done testing, be sure to remove it:
     
     Certutil -delStore TrustedPeople <Serial Number>
 
-To sign things using the certificate, use the helper scripts sign-driver.bat
+To sign things using the certificate, use the helper scripts sign-components.bat
 and sign-installer.bat. You must sign the USB driver installer *before*
 building the JCP installer, as the driver installer is embedded in the
 installer when building it!
 
-    sign-driver.bat <certname>.pfx <Password Used Above>
+    sign-components.bat <certname>.pfx <Password Used Above>
     makensis jcp.nsi
     sign-installer.bat <certname>.pfx <Password Used Above>
 
