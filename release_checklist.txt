@@ -1,0 +1,32 @@
+* Bump Release Version
+ * Bump JCPVERSION version in jcp/jcp.c
+ * Bump "Jaguar Copy" package version in xcode/installer/JCP.pkgproj
+ * Bump "CFBundleShortVersionString" and "CFBundleVersion in xcode/jcp.plist
+
+* Commit version change and push to github. Do NOT tag git commit!
+
+* Build Executables
+ * Build Visual Studio/Windows executable
+  * Sign and timestamp windows executable
+   * Run nsis/sign-components.bat
+ * Build Xcode/Mac OS executable
+  * Ensure target is not "This Mac" and signing is configured correctly!
+
+* Build Packages
+ * Build NSIS installer for Windows
+  * Sign NSIS installer for Windows
+   * Run nsis/sign-installer.bat
+ * Build Packages installer for Mac
+  * Notarize Packages installer for Mac
+   * Run xcode/installer/notarize_submit.sh
+   * Run xcode/installer/notarize_status.sh until notarization is complete
+   * run xcode/installer/notarize_staple.sh
+   * Run spctl -a -vv -t install JCPInstaller,pkg to validate the notarization
+
+* Rename the files to include their version
+ * Copy jcp_installer.exe to jcp-installer-XX.XX.XX.exe
+ * Copy JCPInstaller.pkg to JCPInstaller-XX.XX.XX.pkg
+
+* Create a release on github and name it vXX.XX.XX, corresponding to the version
+  numbers used above, and associate the versioned installer package files with
+that release
